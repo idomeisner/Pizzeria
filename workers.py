@@ -32,15 +32,17 @@ class DouchChef(Worker):
     async def job(self) -> None:
         while True:
             try:
+                # takes his next task (order) from the queue
                 order_data = await self.in_queue.get()
                 order_id = order_data.order_id
 
                 start = perf_counter()
                 order_data.start_time = start
                 logger.info(f"Dough chef #{self._id} starting pizza #{order_id}, time = {start}")
-                await asyncio.sleep(DOUCH_CHEF_WORK_TIME)
+                await asyncio.sleep(DOUCH_CHEF_WORK_TIME)  # working on the douch
                 logger.info(f"Dough chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
 
+                # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
                 self.in_queue.task_done()
 
@@ -56,14 +58,11 @@ class ToppingChef(Worker):
     async def job(self) -> None:
         while True:
             try:
-                # grab an item from the queue (if there is one)
+                # takes his next task (order) from the queue
                 order_data = await self.in_queue.get()
-
-                # read the data we need to perform the work
                 order_id: int = order_data.order_id
                 topping: List[str] = order_data.topping
 
-                # do some work that takes some time - simulated here with an async sleep
                 logger.info(f"Topping chef #{self._id} starting pizza #{order_id}, time = {perf_counter()}")
 
                 while topping:
@@ -71,12 +70,12 @@ class ToppingChef(Worker):
                     topping = topping[2:]
                     logger.info(
                         f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {perf_counter()}")
-                    await asyncio.sleep(TOPPING_CHEF_WORK_TIME)  # random wait time up to 2 seconds
+                    await asyncio.sleep(TOPPING_CHEF_WORK_TIME)  # working on the topping
 
                 logger.info(f"Topping chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
 
+                # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
-
                 self.in_queue.task_done()
 
             except Exception:
@@ -91,17 +90,15 @@ class Oven(Worker):
     async def job(self) -> None:
         while True:
             try:
-                # grab an item from the queue (if there is one)
+                # takes his next task (order) from the queue
                 order_data = await self.in_queue.get()
-
-                # read the data we need to perform the work
                 order_id: int = order_data.order_id
 
-                # do some work that takes some time - simulated here with an async sleep
                 logger.info(f"Oven #{self._id} start baking pizza #{order_id}, time = {perf_counter()}")
-                await asyncio.sleep(OVEN_WORK_TIME)  # random wait time up to 2 seconds
+                await asyncio.sleep(OVEN_WORK_TIME)  # baking the pizza
                 logger.info(f"Oven #{self._id} finished baking pizza #{order_id}, time = {perf_counter()}")
 
+                # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
                 self.in_queue.task_done()
 
@@ -117,13 +114,12 @@ class Waiter(Worker):
     async def job(self) -> None:
         while True:
             try:
-                # grab an item from the queue (if there is one)
+                # takes his next task (order) from the queue
                 order_data = await self.in_queue.get()
                 order_id = order_data.order_id
 
-                # do some work that takes some time - simulated here with an async sleep
                 logger.info(f"Waiter #{self._id} start serving pizza #{order_id}, time = {perf_counter()}")
-                await asyncio.sleep(WAITER_WORK_TIME)  # random wait time up to 2 seconds
+                await asyncio.sleep(WAITER_WORK_TIME)  # serving the pizza
                 end = perf_counter()
                 logger.info(f"Waiter #{self._id} finished serving pizza #{order_id}, time = {end}")
                 order_data.end_time = end
