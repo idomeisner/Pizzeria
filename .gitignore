@@ -1,0 +1,6 @@
+# ignore log files
+*.log
+
+# ignore folders
+__pycache__/
+.idea/
