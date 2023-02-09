@@ -1,86 +1,91 @@
 {
     "Orders": {
         "Order 1": {
-            "Start Time": 0.1881168,
-            "End Time": 26.2018,
-            "Total Time": 26.0136832
+            "Start Time": 0.1503467,
+            "End Time": 64.1475429,
+            "Total Time": 63.997196200000005
         },
         "Order 2": {
-            "Start Time": 0.1884929,
-            "End Time": 46.1897446,
-            "Total Time": 46.0012517
+            "Start Time": 0.1506166,
+            "End Time": 34.1605822,
+            "Total Time": 34.0099656
         },
         "Order 3": {
-            "Start Time": 7.1892817,
-            "End Time": 36.1957263,
-            "Total Time": 29.006444599999995
+            "Start Time": 7.152236,
+            "End Time": 74.154839,
+            "Total Time": 67.002603
         },
         "Order 4": {
-            "Start Time": 7.1899368,
-            "End Time": 66.1945583,
-            "Total Time": 59.0046215
+            "Start Time": 7.1530367,
+            "End Time": 44.1514989,
+            "Total Time": 36.9984622
         },
         "Order 5": {
-            "Start Time": 14.1936843,
-            "End Time": 56.2007471,
-            "Total Time": 42.0070628
+            "Start Time": 14.156653,
+            "End Time": 54.1424955,
+            "Total Time": 39.985842500000004
         },
         "Order 6": {
-            "Start Time": 14.1941687,
-            "End Time": 76.1995294,
-            "Total Time": 62.005360700000004
+            "Start Time": 14.1573316,
+            "End Time": 84.1460196,
+            "Total Time": 69.988688
         },
         "Order 7": {
-            "Start Time": 21.199185,
-            "End Time": 106.2052403,
-            "Total Time": 85.0060553
+            "Start Time": 21.1633424,
+            "End Time": 94.1493269,
+            "Total Time": 72.9859845
         },
         "Order 8": {
-            "Start Time": 21.2002655,
-            "End Time": 86.2011543,
-            "Total Time": 65.0008888
+            "Start Time": 21.1640216,
+            "End Time": 104.1519936,
+            "Total Time": 82.987972
         },
         "Order 9": {
-            "Start Time": 28.1886411,
-            "End Time": 96.203764,
-            "Total Time": 68.01512290000001
+            "Start Time": 28.1686537,
+            "End Time": 114.1540346,
+            "Total Time": 85.9853809
         },
         "Order 10": {
-            "Start Time": 28.1890523,
-            "End Time": 116.2070713,
-            "Total Time": 88.018019
+            "Start Time": 28.1694282,
+            "End Time": 144.1600455,
+            "Total Time": 115.9906173
         },
         "Order 11": {
-            "Start Time": 35.1934796,
-            "End Time": 146.2132097,
-            "Total Time": 111.01973009999999
+            "Start Time": 35.1466866,
+            "End Time": 134.1575951,
+            "Total Time": 99.0109085
         },
         "Order 12": {
-            "Start Time": 35.1939729,
-            "End Time": 126.2083256,
-            "Total Time": 91.01435269999999
+            "Start Time": 35.1468835,
+            "End Time": 124.1556043,
+            "Total Time": 89.00872079999999
         },
         "Order 13": {
-            "Start Time": 42.2020766,
-            "End Time": 156.2148112,
-            "Total Time": 114.01273460000002
+            "Start Time": 42.1511176,
+            "End Time": 174.164396,
+            "Total Time": 132.01327840000002
         },
         "Order 14": {
-            "Start Time": 42.202611,
-            "End Time": 136.2095866,
-            "Total Time": 94.0069756
+            "Start Time": 42.1513046,
+            "End Time": 194.1679353,
+            "Total Time": 152.0166307
         },
         "Order 15": {
-            "Start Time": 49.2086087,
-            "End Time": 166.2165441,
-            "Total Time": 117.0079354
+            "Start Time": 49.1534061,
+            "End Time": 164.1627225,
+            "Total Time": 115.0093164
         },
         "Order 16": {
-            "Start Time": 49.2095393,
-            "End Time": 176.2175454,
-            "Total Time": 127.0080061
+            "Start Time": 49.1537364,
+            "End Time": 154.1615807,
+            "Total Time": 105.0078443
+        },
+        "Order 17": {
+            "Start Time": 56.1432453,
+            "End Time": 184.1659682,
+            "Total Time": 128.02272290000002
         }
     },
-    "TotalTime": 176,
-    "AverageTime": 76
+    "TotalTime": 194,
+    "AverageTime": 87
 }

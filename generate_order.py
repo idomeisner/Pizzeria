@@ -12,7 +12,7 @@ TOPPING = [
     "Green pepper",
     "Mushroom",
     "Onion",
-    "Pepperoni"
+    "Pepperoni",
     "Tomato"
 ]
 
