@@ -1,6 +1,5 @@
 import argparse
-import generate_order
-import pizzeria
+import generate_order, pizzeria
 
 
 def main() -> None:

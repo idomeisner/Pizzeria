@@ -1,13 +1,17 @@
-# Pizzeria
+# Pizza Restaurant
 
-To run the python project, run the file `run_pizzeria.py`.
+## Run
+To run the python project, run the file `run_pizzeria.py`:  
+`python src/run_pizzeria.py`
 
-No arguments are needed for the project to run.
+## Flags
+- `-g` - Create a file with random pizza orders. `pizza_orders.json` will be created.  
+`python src/run_pizzeria.py -g`
+- `-dr` - Don't Run the pizza restaurant.  
+Will probably come together `-g` - create a new pizza orders file without running the entire project.  
+`python src/run_pizzeria.py -g -dr`
 
-- To create a random pizza orders file, run `run_pizzeria.py` with the flag `-g` (`run_pizzeria.py -g`). The file `pizza_orders.json` will be created.
+## Notes
+- You can edit the configurations (number of pizzeria workers and their work duration) in `config.yml`.
 
-- To create a random `pizza_orders.json` file without running the entire project, run with the flags `-g`, `-dr` (`run_pizzeria.py -g -rd`)
-
-- You can edit the configurations (number of pizzeria workers and their work time) in `config.yml`
-
-- After the run has finished, you can view the output report in the file `report.json`
+- After the run has finished, you can view the output report in the file `report.json`.

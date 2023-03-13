@@ -1,10 +1,13 @@
 import asyncio
 import json
-from config import config, logger
+import os
+from dataclasses import dataclass
 from time import perf_counter
 from typing import Any, Dict, List, Optional, Type
+from utils import CURR_DIR, config, get_logger
 from workers import DouchChef, Oven, ToppingChef, Waiter, Worker
-from dataclasses import dataclass
+
+logger = get_logger()
 
 
 @dataclass
@@ -66,7 +69,8 @@ class Pizzeria:
 
         :return:
         """
-        with open("pizza_orders.json", "r") as f:
+        orders_file = os.path.join(CURR_DIR, "pizza_orders.json")
+        with open(orders_file, "r") as f:
             task_data = json.load(f)
 
         for count, order_data in enumerate(task_data["Pizzas"]):
@@ -127,7 +131,8 @@ class Pizzeria:
         report["TotalTime"] = int(total_time)
         report["AverageTime"] = average_time
 
-        with open("report.json", "w") as f:
+        report_file = os.path.join(CURR_DIR, "report.json")
+        with open(report_file, "w") as f:
             json.dump(report, fp=f, indent=4)
 
 

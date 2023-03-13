@@ -1,7 +1,12 @@
-from random import sample, randint
 import json
+import os
+from random import sample, randint
+from utils import CURR_DIR
 
-
+MIN_ORDERS = 5
+MAX_ORDERS = 20
+MIN_TOPPING = 0
+MAX_TOPPING = 8
 TOPPING = [
     "Anchovy",
     "Black olives",
@@ -25,13 +30,14 @@ def generate_order() -> None:
     """
 
     res = []
-    num_of_orders = randint(5, 20)
+    num_of_orders = randint(MIN_ORDERS, MAX_ORDERS)
 
     for _ in range(num_of_orders):
-        order = sample(TOPPING, randint(0, len(TOPPING)))
+        order = sample(TOPPING, randint(MIN_TOPPING, MAX_TOPPING))
         res.append({"Topping": order})
 
     final_order = {"Pizzas": res}
 
-    with open("pizza_orders.json", "w") as f:
+    orders_file = os.path.join(CURR_DIR, "pizza_orders.json")
+    with open(orders_file, "w") as f:
         json.dump(final_order, fp=f, indent=4)

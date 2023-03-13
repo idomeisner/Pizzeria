@@ -1,20 +1,18 @@
 import asyncio
 from abc import ABC, abstractmethod
-from config import config, logger
 from time import perf_counter
 from typing import List, Optional
+from utils import config, get_logger
 
-
-DOUCH_CHEF_WORK_TIME: int = config["DOUCH_CHEF_WORK_TIME"]
-TOPPING_CHEF_WORK_TIME: int = config["TOPPING_CHEF_WORK_TIME"]
-OVEN_WORK_TIME: int = config["OVEN_WORK_TIME"]
-WAITER_WORK_TIME: int = config["WAITER_WORK_TIME"]
+logger = get_logger()
 
 
 class Worker(ABC):
     """
     Base class of each of the workers types
     """
+    work_duration: int
+
     def __init__(self, idx: int, in_queue: asyncio.Queue, out_queue: Optional[asyncio.Queue] = None):
         self._id = idx
         self.in_queue = in_queue
@@ -28,6 +26,7 @@ class Worker(ABC):
 class DouchChef(Worker):
     def __init__(self, *args):
         super().__init__(*args)
+        self.work_duration = config["DOUCH_CHEF_WORK_DURATION"]
 
     async def job(self) -> None:
         while True:
@@ -39,7 +38,7 @@ class DouchChef(Worker):
                 start = perf_counter()
                 order_data.start_time = start
                 logger.info(f"Dough chef #{self._id} starting pizza #{order_id}, time = {start}")
-                await asyncio.sleep(DOUCH_CHEF_WORK_TIME)  # working on the douch
+                await asyncio.sleep(self.work_duration)  # working on the douch
                 logger.info(f"Dough chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
 
                 # puts the order in the queue for the next worker in the pipeline
@@ -54,6 +53,7 @@ class DouchChef(Worker):
 class ToppingChef(Worker):
     def __init__(self, *args):
         super().__init__(*args)
+        self.work_duration = config["TOPPING_CHEF_WORK_DURATION"]
 
     async def job(self) -> None:
         while True:
@@ -70,7 +70,7 @@ class ToppingChef(Worker):
                     topping = topping[2:]
                     logger.info(
                         f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {perf_counter()}")
-                    await asyncio.sleep(TOPPING_CHEF_WORK_TIME)  # working on the topping
+                    await asyncio.sleep(self.work_duration)  # working on the topping
 
                 logger.info(f"Topping chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
 
@@ -86,6 +86,7 @@ class ToppingChef(Worker):
 class Oven(Worker):
     def __init__(self, *args):
         super().__init__(*args)
+        self.work_duration = config["OVEN_WORK_DURATION"]
 
     async def job(self) -> None:
         while True:
@@ -95,7 +96,7 @@ class Oven(Worker):
                 order_id: int = order_data.order_id
 
                 logger.info(f"Oven #{self._id} start baking pizza #{order_id}, time = {perf_counter()}")
-                await asyncio.sleep(OVEN_WORK_TIME)  # baking the pizza
+                await asyncio.sleep(self.work_duration)  # baking the pizza
                 logger.info(f"Oven #{self._id} finished baking pizza #{order_id}, time = {perf_counter()}")
 
                 # puts the order in the queue for the next worker in the pipeline
@@ -110,6 +111,7 @@ class Oven(Worker):
 class Waiter(Worker):
     def __init__(self, *args):
         super().__init__(*args)
+        self.work_duration = config["WAITER_WORK_DURATION"]
 
     async def job(self) -> None:
         while True:
@@ -119,7 +121,7 @@ class Waiter(Worker):
                 order_id = order_data.order_id
 
                 logger.info(f"Waiter #{self._id} start serving pizza #{order_id}, time = {perf_counter()}")
-                await asyncio.sleep(WAITER_WORK_TIME)  # serving the pizza
+                await asyncio.sleep(self.work_duration)  # serving the pizza
                 end = perf_counter()
                 logger.info(f"Waiter #{self._id} finished serving pizza #{order_id}, time = {end}")
                 order_data.end_time = end
