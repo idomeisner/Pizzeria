@@ -4,3 +4,4 @@
 # ignore folders
 __pycache__/
 .idea/
+venv/
