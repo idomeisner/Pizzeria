@@ -1,10 +1,11 @@
 import asyncio
 from abc import ABC, abstractmethod
-from time import perf_counter
+from time import time
 from typing import List, Optional
 from utils import config, get_logger
 
 logger = get_logger()
+START_TIME = time()
 
 
 class Worker(ABC):
@@ -35,11 +36,11 @@ class DouchChef(Worker):
                 order_data = await self.in_queue.get()
                 order_id = order_data.order_id
 
-                start = perf_counter()
+                start = time() - START_TIME
                 order_data.start_time = start
                 logger.info(f"Dough chef #{self._id} starting pizza #{order_id}, time = {start}")
                 await asyncio.sleep(self.work_duration)  # working on the douch
-                logger.info(f"Dough chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Dough chef #{self._id} finished pizza #{order_id}, time = {time() - START_TIME}")
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -69,10 +70,10 @@ class ToppingChef(Worker):
                     curr_topping = topping[:2]
                     topping = topping[2:]
                     logger.info(
-                        f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {perf_counter()}")
+                        f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {time() - START_TIME}")
                     await asyncio.sleep(self.work_duration)  # working on the topping
 
-                logger.info(f"Topping chef #{self._id} finished pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Topping chef #{self._id} finished pizza #{order_id}, time = {time() - START_TIME}")
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -95,9 +96,9 @@ class Oven(Worker):
                 order_data = await self.in_queue.get()
                 order_id: int = order_data.order_id
 
-                logger.info(f"Oven #{self._id} start baking pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Oven #{self._id} start baking pizza #{order_id}, time = {time() - START_TIME}")
                 await asyncio.sleep(self.work_duration)  # baking the pizza
-                logger.info(f"Oven #{self._id} finished baking pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Oven #{self._id} finished baking pizza #{order_id}, time = {time() - START_TIME}")
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -120,9 +121,9 @@ class Waiter(Worker):
                 order_data = await self.in_queue.get()
                 order_id = order_data.order_id
 
-                logger.info(f"Waiter #{self._id} start serving pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Waiter #{self._id} starts serving pizza #{order_id}, time = {time() - START_TIME}")
                 await asyncio.sleep(self.work_duration)  # serving the pizza
-                end = perf_counter()
+                end = time() - START_TIME
                 logger.info(f"Waiter #{self._id} finished serving pizza #{order_id}, time = {end}")
                 order_data.end_time = end
 

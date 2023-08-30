@@ -110,8 +110,8 @@ class Pizzeria:
         all_orders_time: float = 0
 
         logger.info(f"\nREPORT:")
-        logger.info(f"Total time: {int(total_time)}sec")
-        logger.info("Preparation time for each order:")
+        logger.info(f"Total time: {round(total_time)}sec")
+        logger.info("Preparation time of each order:")
 
         for order in self.orders:
             order_time = order.end_time - order.start_time
@@ -121,14 +121,14 @@ class Pizzeria:
             }
 
             all_orders_time += order_time
-            logger.info(f"Order {order.order_id + 1}: {int(order_time)}sec")
+            logger.info(f"Order {order.order_id + 1}: {round(order_time)}sec")
 
         # calculates the average order time
-        average_time = int(all_orders_time / len(self.orders)) if len(self.orders) else 0
+        average_time = round(all_orders_time / len(self.orders)) if len(self.orders) else 0
         logger.info(f"Average order time: {average_time}sec")
 
         report["Orders"] = orders_res
-        report["TotalTime"] = int(total_time)
+        report["TotalTime"] = round(total_time)
         report["AverageTime"] = average_time
 
         report_file = os.path.join(CURR_DIR, "report.json")
