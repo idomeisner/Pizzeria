@@ -14,8 +14,8 @@ logger = get_logger()
 class Order:
     order_id: int
     topping: List[str]
-    start_time: Optional[float] = None
-    end_time: Optional[float] = None
+    start_time: float = 0.0
+    end_time: float = 0.0
 
 
 class Pizzeria:
@@ -25,12 +25,12 @@ class Pizzeria:
     waiter_queue: asyncio.Queue
 
     def __init__(self):
-        self.douch_chefs = config["DOUCH_CHEFS"]
-        self.topping_chefs = config["TOPPING_CHEFS"]
-        self.ovens = config["OVENS"]
-        self.waiters = config["WAITERS"]
+        self.douch_chefs: int = config["DOUCH_CHEFS"]
+        self.topping_chefs: int = config["TOPPING_CHEFS"]
+        self.ovens: int = config["OVENS"]
+        self.waiters: int = config["WAITERS"]
         self.orders: List[Order] = []
-        self.tasks = []
+        self.tasks: List[asyncio.Future] = []
 
     async def run(self):
         """

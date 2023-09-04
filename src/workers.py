@@ -22,7 +22,8 @@ class Worker(ABC):
     ):
         self._id = idx
         self.in_queue = in_queue
-        self.out_queue = out_queue
+        if out_queue:  # Waiters don't have an output queue
+            self.out_queue = out_queue
 
     @abstractmethod
     async def job(self) -> None:
