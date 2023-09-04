@@ -1,9 +1,9 @@
 import logging
 import os
 import sys
-import yaml
 from time import time
 
+import yaml
 
 CURR_DIR = os.path.dirname(os.path.abspath(__file__))
 START_TIME = time()

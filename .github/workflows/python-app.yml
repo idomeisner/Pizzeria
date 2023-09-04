@@ -34,3 +34,6 @@ jobs:
     - name: Format with black
       run: |
         black --check .
+    - name: Sort imports with isort
+      run: |
+        isort . -c
