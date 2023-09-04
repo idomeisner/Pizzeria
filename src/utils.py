@@ -14,10 +14,14 @@ def get_time() -> float:
 
 
 def get_logger() -> logging.Logger:
-    logging.basicConfig(level=config["LOG_LVL"], format='%(message)s', stream=sys.stdout)
+    logging.basicConfig(
+        level=config["LOG_LVL"], format="%(message)s", stream=sys.stdout
+    )
     logger = logging.getLogger()
-    file_handler = logging.FileHandler("../outlog.log", mode='w')
-    formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(filename)s:%(lineno)d - %(message)s')
+    file_handler = logging.FileHandler("../outlog.log", mode="w")
+    formatter = logging.Formatter(
+        "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)d - %(message)s"
+    )
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 

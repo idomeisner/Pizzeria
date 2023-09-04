@@ -34,7 +34,7 @@ class Pizzeria:
     async def run(self):
         """
         The pizzeria runner function
-        
+
         :return:
         """
 
@@ -45,8 +45,12 @@ class Pizzeria:
 
         self.generate_initial_queue()
 
-        self.generate_tasks(self.douch_chefs, DouchChef, self.dough_queue, self.topping_queue)
-        self.generate_tasks(self.topping_chefs, ToppingChef, self.topping_queue, self.oven_queue)
+        self.generate_tasks(
+            self.douch_chefs, DouchChef, self.dough_queue, self.topping_queue
+        )
+        self.generate_tasks(
+            self.topping_chefs, ToppingChef, self.topping_queue, self.oven_queue
+        )
         self.generate_tasks(self.ovens, Oven, self.oven_queue, self.waiter_queue)
         self.generate_tasks(self.waiters, Waiter, self.waiter_queue)
 
@@ -80,7 +84,7 @@ class Pizzeria:
         workers_count: int,
         base_worker: Type[Worker],
         in_queue: asyncio.Queue,
-        out_queue: Optional[asyncio.Queue] = None
+        out_queue: Optional[asyncio.Queue] = None,
     ) -> None:
         """
         Creates the asyncio task of the workers
@@ -114,14 +118,18 @@ class Pizzeria:
             order_time = order.end_time - order.start_time
             order_key = f"Order {order.order_id + 1}"
             orders_res[order_key] = {
-                "Start Time": order.start_time, "End Time": order.end_time, "Total Time": order_time
+                "Start Time": order.start_time,
+                "End Time": order.end_time,
+                "Total Time": order_time,
             }
 
             all_orders_time += order_time
             logger.info(f"Order {order.order_id + 1}: {round(order_time)}sec")
 
         # calculates the average order time
-        average_time = round(all_orders_time / len(self.orders)) if len(self.orders) else 0
+        average_time = (
+            round(all_orders_time / len(self.orders)) if len(self.orders) else 0
+        )
         logger.info(f"Average order time: {average_time}sec")
 
         report["Orders"] = orders_res

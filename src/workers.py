@@ -10,9 +10,15 @@ class Worker(ABC):
     """
     Base class of each of the workers types
     """
+
     work_duration: int
 
-    def __init__(self, idx: int, in_queue: asyncio.Queue, out_queue: Optional[asyncio.Queue] = None):
+    def __init__(
+        self,
+        idx: int,
+        in_queue: asyncio.Queue,
+        out_queue: Optional[asyncio.Queue] = None,
+    ):
         self._id = idx
         self.in_queue = in_queue
         self.out_queue = out_queue
@@ -36,9 +42,13 @@ class DouchChef(Worker):
 
                 start = get_time()
                 order_data.start_time = start
-                logger.info(f"Dough chef #{self._id} starting pizza #{order_id}, time = {start}")
+                logger.info(
+                    f"Dough chef #{self._id} starting pizza #{order_id}, time = {start}"
+                )
                 await asyncio.sleep(self.work_duration)  # working on the douch
-                logger.info(f"Dough chef #{self._id} finished pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Dough chef #{self._id} finished pizza #{order_id}, time = {get_time()}"
+                )
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -62,16 +72,21 @@ class ToppingChef(Worker):
                 order_id: int = order_data.order_id
                 topping: List[str] = order_data.topping
 
-                logger.info(f"Topping chef #{self._id} starting pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Topping chef #{self._id} starting pizza #{order_id}, time = {get_time()}"
+                )
 
                 while topping:
                     curr_topping = topping[:2]
                     topping = topping[2:]
                     logger.info(
-                        f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {get_time()}")
+                        f"Topping chef #{self._id} adding {curr_topping} to pizza #{order_id}, time = {get_time()}"
+                    )
                     await asyncio.sleep(self.work_duration)  # working on the topping
 
-                logger.info(f"Topping chef #{self._id} finished pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Topping chef #{self._id} finished pizza #{order_id}, time = {get_time()}"
+                )
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -94,9 +109,13 @@ class Oven(Worker):
                 order_data = await self.in_queue.get()
                 order_id: int = order_data.order_id
 
-                logger.info(f"Oven #{self._id} start baking pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Oven #{self._id} start baking pizza #{order_id}, time = {get_time()}"
+                )
                 await asyncio.sleep(self.work_duration)  # baking the pizza
-                logger.info(f"Oven #{self._id} finished baking pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Oven #{self._id} finished baking pizza #{order_id}, time = {get_time()}"
+                )
 
                 # puts the order in the queue for the next worker in the pipeline
                 await self.out_queue.put(order_data)
@@ -119,10 +138,14 @@ class Waiter(Worker):
                 order_data = await self.in_queue.get()
                 order_id = order_data.order_id
 
-                logger.info(f"Waiter #{self._id} starts serving pizza #{order_id}, time = {get_time()}")
+                logger.info(
+                    f"Waiter #{self._id} starts serving pizza #{order_id}, time = {get_time()}"
+                )
                 await asyncio.sleep(self.work_duration)  # serving the pizza
                 end = get_time()
-                logger.info(f"Waiter #{self._id} finished serving pizza #{order_id}, time = {end}")
+                logger.info(
+                    f"Waiter #{self._id} finished serving pizza #{order_id}, time = {end}"
+                )
                 order_data.end_time = end
 
                 self.in_queue.task_done()

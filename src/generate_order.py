@@ -18,7 +18,7 @@ TOPPING = [
     "Mushroom",
     "Onion",
     "Pepperoni",
-    "Tomato"
+    "Tomato",
 ]
 
 
