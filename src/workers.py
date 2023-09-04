@@ -55,7 +55,7 @@ class DouchChef(Worker):
                 self.in_queue.task_done()
 
             except Exception:
-                logger.warning(f"Encountered error:", exc_info=True)
+                logger.warning("Encountered error:", exc_info=True)
                 self.in_queue.task_done()
 
 
@@ -93,7 +93,7 @@ class ToppingChef(Worker):
                 self.in_queue.task_done()
 
             except Exception:
-                logger.warning(f"Encountered error:", exc_info=True)
+                logger.warning("Encountered error:", exc_info=True)
                 self.in_queue.task_done()
 
 
@@ -122,7 +122,7 @@ class Oven(Worker):
                 self.in_queue.task_done()
 
             except Exception:
-                logger.warning(f"Encountered error:", exc_info=True)
+                logger.warning("Encountered error:", exc_info=True)
                 self.in_queue.task_done()
 
 
@@ -151,5 +151,5 @@ class Waiter(Worker):
                 self.in_queue.task_done()
 
             except Exception:
-                logger.warning(f"Encountered error:", exc_info=True)
+                logger.warning("Encountered error:", exc_info=True)
                 self.in_queue.task_done()

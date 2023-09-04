@@ -110,7 +110,7 @@ class Pizzeria:
         orders_res: Dict[str, Dict[str, float]] = {}
         all_orders_time: float = 0
 
-        logger.info(f"\nREPORT:")
+        logger.info("\nREPORT:")
         logger.info(f"Total time: {round(total_time)}sec")
         logger.info("Preparation time of each order:")
 
@@ -146,4 +146,4 @@ def run() -> None:
         asyncio.run(Pizzeria().run())
 
     except Exception:
-        logger.warning(f"Encountered error:", exc_info=True)
+        logger.warning("Encountered error:", exc_info=True)
