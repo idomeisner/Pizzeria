@@ -2,9 +2,8 @@ import asyncio
 import json
 import os
 from dataclasses import dataclass
-from time import perf_counter
 from typing import Any, Dict, List, Optional, Type
-from utils import CURR_DIR, config, get_logger
+from utils import CURR_DIR, config, get_logger, get_time
 from workers import DouchChef, Oven, ToppingChef, Waiter, Worker
 
 logger = get_logger()
@@ -38,7 +37,6 @@ class Pizzeria:
         
         :return:
         """
-        start = perf_counter()
 
         self.dough_queue = asyncio.Queue()
         self.topping_queue = asyncio.Queue()
@@ -60,8 +58,7 @@ class Pizzeria:
         for task in self.tasks:
             task.cancel()
 
-        end = perf_counter()
-        self.generate_report(end - start)
+        self.generate_report(get_time())
 
     def generate_initial_queue(self) -> None:
         """

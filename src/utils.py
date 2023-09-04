@@ -2,9 +2,15 @@ import logging
 import os
 import sys
 import yaml
+from time import time
 
 
 CURR_DIR = os.path.dirname(os.path.abspath(__file__))
+START_TIME = time()
+
+
+def get_time() -> float:
+    return time() - START_TIME
 
 
 def get_logger() -> logging.Logger:
