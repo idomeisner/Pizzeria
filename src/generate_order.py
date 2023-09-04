@@ -1,6 +1,7 @@
 import json
 import os
-from random import sample, randint
+from random import randint, sample
+
 from utils import CURR_DIR
 
 MIN_ORDERS = 5
