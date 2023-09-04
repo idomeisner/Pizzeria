@@ -64,7 +64,7 @@ class ToppingChef(Worker):
                 order_id: int = order_data.order_id
                 topping: List[str] = order_data.topping
 
-                logger.info(f"Topping chef #{self._id} starting pizza #{order_id}, time = {perf_counter()}")
+                logger.info(f"Topping chef #{self._id} starting pizza #{order_id}, time = {time() - START_TIME}")
 
                 while topping:
                     curr_topping = topping[:2]
